@@ -30,6 +30,5 @@ func main() {
 	default:
 		fmt.Printf("%q is not a valid subcommand\n", os.Args[1])
 		os.Exit(1)
-
 	}
 }
