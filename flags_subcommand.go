@@ -6,6 +6,8 @@ import (
 	"os"
 )
 
+// example usage of the flag pkg
+
 func main() {
 	ew := flag.NewFlagSet("nw", flag.ExitOnError)
 	ewInterstate := ew.Int("interstate", 0, "Which interstate we should use.")
