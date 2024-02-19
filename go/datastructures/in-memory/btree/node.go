@@ -32,7 +32,7 @@ func (n *node) search(key []byte) (int, bool) {
 			low = mid + 1
 		case cmp < 0:
 			high = mid
-		case cmd == 0:
+		case cmp == 0:
 			return mid, true
 		}
 	}
@@ -52,7 +52,7 @@ func (n *node) insertItemAt(pos int, i *item) {
 func (n *node) insertChildAt(pos int, c *node) {
 	if pos < n.numChildren {
 		// make space for insertion if we are not appending to the very end of the `children` array
-		copy(n.children[pos+1:numChildren+1], n.children[pos:n.numChildren])
+		copy(n.children[pos+1:n.numChildren+1], n.children[pos:n.numChildren])
 	}
 	n.children[pos] = c
 	n.numChildren++
@@ -122,7 +122,7 @@ func (n *node) insert(item *item) bool {
 		default:
 			// the middle item we took from teh child is the item we are searching for
 			// update its value
-			n.items[pos] = items
+			n.items[pos] = item
 			return true
 		}
 	}
@@ -148,7 +148,7 @@ func (n *node) removeChildAt(pos int) *node {
 	n.children[pos] = nil
 
 	// fill the gap if the position being removed is not the last occupied position of the array
-	if lastPos := numChildren - 1; pos < lastPos {
+	if lastPos := n.numChildren - 1; pos < lastPos {
 		copy(n.children[pos:lastPos], n.children[pos+1:lastPos+1])
 		n.children[lastPos] = nil
 	}
@@ -166,7 +166,7 @@ func (n *node) fillChildAt(pos int) {
 		left, right := n.children[pos-1], n.children[pos]
 
 		// take item from parent and place it at left-most position of right node
-		copy(right.items[1:right.numItems+1], right.items[:right.numItems()])
+		copy(right.items[1:right.numItems+1], right.items[:right.numItems])
 		right.items[0] = n.items[pos-1]
 		right.numItems++
 

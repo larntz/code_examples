@@ -13,7 +13,7 @@ type BTree struct {
 	root *node
 }
 
-func NewBTree() *Btree {
+func NewBTree() *BTree {
 	return &BTree{}
 }
 
@@ -53,7 +53,7 @@ func (t *BTree) Delete(key []byte) bool {
 	}
 	deletedItem := t.root.delete(key, false)
 
-	if t.root.minItems == 0 {
+	if t.root.numItems == 0 {
 		if t.root.isLeaf() {
 			t.root = nil
 		} else {
@@ -61,7 +61,7 @@ func (t *BTree) Delete(key []byte) bool {
 		}
 	}
 
-	if deltedItem != nil {
+	if deletedItem != nil {
 		return true
 	}
 
