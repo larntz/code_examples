@@ -1,4 +1,4 @@
-package fastrand
+package skiplist
 
 import _ "unsafe"
 
