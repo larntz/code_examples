@@ -1,5 +1,11 @@
 package skiplist
 
+import (
+	"bytes"
+	"errors"
+	"math"
+)
+
 const (
 	MaxHeight = 16  // log1/p(N)
 	PValue    = 0.5 // p = 1/2
@@ -49,7 +55,7 @@ func (sl *SkipList) Insert(key, val []byte) {
 	}
 
 	height := randomHeight()
-	nd := &node{key, val}
+	nd := &node{key: key, val: val}
 
 	for level := 0; level < height; level++ {
 		prev := journey[level]
@@ -131,7 +137,7 @@ func (sl *SkipList) shrink() {
 }
 
 func randomHeight() int {
-	seed := fastrand.Uint32()
+	seed := Uint32()
 
 	height := 1
 	for height < MaxHeight && seed <= probabilities[height] {
