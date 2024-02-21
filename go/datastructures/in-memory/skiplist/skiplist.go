@@ -101,7 +101,7 @@ func (sl *SkipList) Delete(key []byte) bool {
 func init() {
 	probability := 1.0
 	for level := 0; level < MaxHeight; level++ {
-		probability[level] = uint32(probability * float64(math.MaxUint32))
+		probabilities[level] = uint32(probability * float64(math.MaxUint32))
 		probability *= PValue
 	}
 }
